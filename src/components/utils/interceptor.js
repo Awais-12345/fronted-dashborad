@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://backend-fyp-delta.vercel.app/',
+  baseURL: 'https://backend-code-omega.vercel.app/',
   headers: { 'Content-Type': 'application/json' },
   timeout:10000,
 });
