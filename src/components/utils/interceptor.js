@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://backend-code-woad-delta.vercel.app/',
+  baseURL: 'http://localhost:3000/',
   headers: { 'Content-Type': 'application/json' },
   timeout:10000,
 });
