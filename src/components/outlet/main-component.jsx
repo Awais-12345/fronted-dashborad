@@ -5,7 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import { Header } from '../header/header'
 
 const MainComponent = () => {
-    const [active, setActive] = useState(null);
+    const [active, setActive] = useState(0);
     return (
         <div>
             <Container fluid>
