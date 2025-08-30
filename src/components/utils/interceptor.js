@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/',
+  baseURL: 'http://localhost:5000',
   headers: { 'Content-Type': 'application/json' },
   timeout:10000,
 });
@@ -33,8 +33,6 @@ axiosInstance.interceptors.response.use(
           error.response.data.message || 'An error occurred. Please try again.'
         );
       }
-    } else if (error.request) {
-      toast.error('No response from server. Please try later.');
     } else {
       toast.error('Request error occurred.');
     }
