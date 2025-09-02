@@ -23,7 +23,8 @@ const LoginForm = () => {
         setLoading(true);
         try {
             const res = await axiosInstance.post('/api/auth/login', values);
-            if (res.status === 200) {
+
+            if (res.status === 200 && res.data.token) {
                 const { token, user: userData } = res.data;
                 setUser(userData);
                 localStorage.setItem('accessToken', token);
@@ -32,16 +33,15 @@ const LoginForm = () => {
                 navigate('/dashboard');
             }
         } catch (error) {
-            if (error.response && error.response.status === 401) {
-                toast.error("Invalid email or password");
-            } else {
-                toast.error("Something went wrong. Please try again later.");
-            }
-            console.error(error);
+            // 🟢 sirf yahan ek toast
+            const message =
+                error.response?.data?.message || "Invalid username or password";
+            toast.error(message);
         } finally {
             setLoading(false);
         }
     };
+
 
     return (
         <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '90vh' }}>
