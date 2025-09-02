@@ -2,7 +2,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://backend-option.vercel.app',
+  baseURL: process.env.REACT_APP_API_URL,
+   withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
   timeout:10000,
 });
