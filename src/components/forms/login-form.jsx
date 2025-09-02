@@ -18,28 +18,30 @@ const LoginForm = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
- 
-const handleSubmit = async (values) => {
-  setLoading(true);
-  try {
-    const res = await axiosInstance.post('/api/auth/login', values);
-    if (res.status === 200) {
-      const { token, user: userData } = res.data;
-      setUser(userData);
-      localStorage.setItem('accessToken', token);
-      localStorage.setItem('user', JSON.stringify(userData));
-      toast.success('Login successful!');
-      navigate('/dashboard');
-    } else {
-      toast.error("Invalid username or password");
-    }
-  } catch (error) {
-    console.error(error);
-  } finally {
-    setLoading(false);
-  }
-};
 
+    const handleSubmit = async (values) => {
+        setLoading(true);
+        try {
+            const res = await axiosInstance.post('/api/auth/login', values);
+            if (res.status === 200) {
+                const { token, user: userData } = res.data;
+                setUser(userData);
+                localStorage.setItem('accessToken', token);
+                localStorage.setItem('user', JSON.stringify(userData));
+                toast.success('Login successful!');
+                navigate('/dashboard');
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                toast.error("Invalid username or password");
+            } else {
+                toast.error("Something went wrong. Please try again later.");
+            }
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '90vh' }}>
