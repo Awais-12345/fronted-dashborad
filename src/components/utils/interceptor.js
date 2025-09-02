@@ -4,9 +4,8 @@ import { toast } from 'react-toastify';
 const axiosInstance = axios.create({
   baseURL: 'https://backend-option.vercel.app',
   headers: { 'Content-Type': 'application/json' },
-  timeout:10000,
+  timeout: 10000,
 });
-
 
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -23,21 +22,29 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response) {
-      if (error.response.status === 401) {
-        toast.error('Session expired. Please log in again.');
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('user');
-        window.location.href = '/login';
+      const originalRequest = error.config;
+
+      // Agar 401 login route pe aaya → sirf toast, redirect nahi
+      if (
+        error.response.status === 401 &&
+        !originalRequest.url.includes("/auth/login")
+      ) {
+        toast.error("Session expired. Please log in again.");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("user");
+        window.location.href = "/login";
       } else {
         toast.error(
-          error.response.data.message || 'An error occurred. Please try again.'
+          error.response.data.message ||
+          "An error occurred. Please try again."
         );
       }
     } else {
-      toast.error('Request error occurred.');
+      toast.error("Request error occurred.");
     }
     return Promise.reject(error);
   }
 );
+
 
 export default axiosInstance;
