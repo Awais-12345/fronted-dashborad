@@ -23,7 +23,7 @@ const LoginForm = () => {
         setLoading(true);
         try {
             const res = await axiosInstance.post('/api/auth/login', values);
-
+             console.log("Login Response:", res.data);
             if (res.status === 200 && res.data.token) {
                 const { token, user: userData } = res.data;
                 setUser(userData);
@@ -40,7 +40,6 @@ const LoginForm = () => {
             setLoading(false);
         }
     };
-
 
     return (
         <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '90vh' }}>
