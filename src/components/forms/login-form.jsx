@@ -33,7 +33,7 @@ const LoginForm = () => {
             }
         } catch (error) {
             if (error.response && error.response.status === 401) {
-                toast.error("Invalid username or password");
+                toast.error("Invalid email or password");
             } else {
                 toast.error("Something went wrong. Please try again later.");
             }
