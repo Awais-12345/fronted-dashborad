@@ -2,11 +2,11 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL, // must include /api
-  withCredentials: true,
+  baseURL: 'https://backend-option.vercel.app',
   headers: { 'Content-Type': 'application/json' },
-  timeout: 10000,
+  timeout:10000,
 });
+
 
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -27,14 +27,14 @@ axiosInstance.interceptors.response.use(
         toast.error('Session expired. Please log in again.');
         localStorage.removeItem('accessToken');
         localStorage.removeItem('user');
-        window.location.href = '/login'; // temporary, can improve with navigate
+        window.location.href = '/login';
       } else {
         toast.error(
-          error.response?.data?.message || 'An error occurred. Please try again.'
+          error.response.data.message || 'An error occurred. Please try again.'
         );
       }
     } else {
-      toast.error('Network error occurred.');
+      toast.error('Request error occurred.');
     }
     return Promise.reject(error);
   }
