@@ -40,7 +40,7 @@ function App() {
         <ToastContainer position="top-right" autoClose={3000} />
         <Routes>
           {/* Public Routes */}
-          <Route path="/login" element={<LoginForm />} />
+          <Route path="/" element={<LoginForm />} />
           <Route path="/signupform" element={<SignupForm />} />
           <Route path="/email" element={<Email />} />
           <Route path="/new-password" element={<NewPassword />} />
