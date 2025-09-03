@@ -12,9 +12,9 @@ import {
   Dashboard,
   Analytics
 } from "./components";
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
-import { ProtectedRoute } from './components/forms/protected';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ProtectedRoute } from "./components/forms/protected";
 
 export const ActiveContext = createContext();
 
@@ -22,17 +22,15 @@ function App() {
   const [user, setUser] = useState(null);
   const [isauthenticated, setAuthenticated] = useState(false);
 
-
- useEffect(() => {
-  const storedUser = localStorage.getItem('user');
-  if (storedUser) {
-    setUser(JSON.parse(storedUser));
-    setAuthenticated(true);
-  } else {
-    setAuthenticated(false);
-  }
-},[]);
-
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+      setAuthenticated(true);
+    } else {
+      setAuthenticated(false);
+    }
+  }, []);
 
   return (
     <ActiveContext.Provider value={{ user, setUser, isauthenticated, setAuthenticated }}>
@@ -44,12 +42,19 @@ function App() {
           <Route path="/signupform" element={<SignupForm />} />
           <Route path="/email" element={<Email />} />
           <Route path="/new-password" element={<NewPassword />} />
-          {/* Protected Layout Routes */}
-          <Route path="/" element={<ProtectedRoute> <MainComponent /> </ProtectedRoute>}>
+
+          {/* Protected Routes */}
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute isauthenticated={isauthenticated}>
+                <MainComponent />
+              </ProtectedRoute>
+            }
+          >
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="order" element={<OrderCard />} />
             <Route path="user" element={<UserCard />} />
-            <Route path="product" element={<ProductCard />} />
             <Route path="product" element={<ProductCard />} />
             <Route path="analytic" element={<Analytics />} />
           </Route>

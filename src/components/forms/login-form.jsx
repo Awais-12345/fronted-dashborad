@@ -22,8 +22,7 @@ const LoginForm = () => {
     const handleSubmit = async (values) => {
         setLoading(true);
         try {
-            const res = await axiosInstance.post('/api/auth/login', values);
-             console.log("Login Response:", res.data);
+            const res = await axiosInstance?.post('/api/auth/login', values);
             if (res.status === 200 && res.data.token) {
                 const { token, user: userData } = res.data;
                 setUser(userData);

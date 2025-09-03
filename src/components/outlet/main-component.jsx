@@ -6,7 +6,7 @@ import { Header } from '../header/header'
 
 const MainComponent = () => {
     const [active, setActive] = useState(SideArray[0]);
-    
+
     return (
         <div>
             <Container fluid>
